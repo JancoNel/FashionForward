@@ -1,0 +1,334 @@
+{ Code parsed using PASFMT on 2026-07-13 18:20:39.997094 }
+
+unit u_profile;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  FMX.Memo.Types,
+  FMX.ScrollBox,
+  FMX.Memo,
+  dm_fashion,
+  Data.Win.ADODB,
+  Data.DB,
+  FMX.Layouts,
+  WinAPI.Windows,
+  WinAPI.ShellAPI,
+  dm_logger;
+
+type
+  Tfrm_profile = class(TForm)
+
+    btn_Contact: TButton;
+    btn_view: TButton;
+    btn_Back: TButton;
+    mem_desc: TMemo;
+    lbl_USERNAME: TLabel;
+    btn_edit: TButton;
+    lbl_desc: TLabel;
+    btn_save: TButton;
+    lbl_rating: TLabel;
+    sl_profile: TScaledLayout;
+    chk_seller: TCheckBox;
+    btn_email: TButton;
+    procedure btn_viewClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure btn_BackClick(Sender: TObject);
+    procedure btn_editClick(Sender: TObject);
+    procedure btn_saveClick(Sender: TObject);
+    procedure chk_sellerChange(Sender: TObject);
+    procedure btn_ContactClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormResize(Sender: TObject);
+    procedure btn_emailClick(Sender: TObject);
+  private
+  { Private declarations }
+  public
+    { Public declarations }
+    fUpdating: Boolean; // Ek weet ek moet b vir boolean gebruik maar F voel meer fitting hier
+    dms_frm_main: TForm;
+  end;
+
+var
+  frm_profile: Tfrm_profile;
+
+implementation
+
+{$R *.fmx}
+
+procedure Tfrm_profile.btn_BackClick(Sender: TObject);
+begin
+  dms_frm_main.Show;
+  Self.Hide;
+end;
+
+procedure Tfrm_profile.btn_ContactClick(Sender: TObject);
+var
+  MailTo: string;
+begin
+  with dm_databasis do begin
+    tbl_users.Open;
+
+    if tbl_users.Locate('Username', dm_databasis.dmsTarget, []) then begin
+      // Kyk of die email nil/null
+      if not tbl_users.FieldByName('Email').IsNull then begin
+        MessageDlg('Please wait while your email client is opening.', TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOk], 0);
+        MailTo := 'mailto:' + tbl_users.FieldByName('Email').AsString;
+        ShellExecute(0, 'open', PChar(MailTo), nil, nil, SW_SHOWNORMAL);
+      end
+      else
+        MessageDlg('This user has no email address on file.', TMsgDlgType.mtError, [TMsgDlgBtn.mbOk], 0);
+    end
+    else
+      MessageDlg('User not found.', TMsgDlgType.mtError, [TMsgDlgBtn.mbOk], 0);
+
+    tbl_users.Close;
+  end;
+end;
+
+procedure Tfrm_profile.btn_editClick(Sender: TObject);
+begin
+
+  with dm_databasis do begin
+    tbl_users.Open;
+    mem_desc.ReadOnly := False;
+    mem_desc.Lines.Clear;
+    mem_desc.SetFocus;
+    tbl_users.Locate('Username', dmsUsername, []);
+    mem_desc.Lines.Add(tbl_users.FieldByName('Description').AsString);
+    tbl_users.Close;
+  end;
+end;
+
+procedure Tfrm_profile.btn_emailClick(Sender: TObject);
+var
+  iResponse: Integer;
+  sEmail: string;
+begin
+
+  iResponse :=
+      MessageDlg(
+          'Are you sure you want to change your email address?',
+          TMsgDlgType.mtConfirmation,
+          [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo],
+          0
+      );
+
+  // Btw, mrYes is 'n constant , m.a.w kan jy teoreties dit net met 'n 6 vervang
+  if iResponse = mrYes then begin
+
+    sEmail := inputbox('Email', 'What is your new email address?', '');
+
+    // Valideering (Iets wat ek voel die program nie genoeg van het nie)
+    if sEmail = '' then begin
+      MessageDlg('Email address cannot be empty.', TMsgDlgType.mtError, [TMsgDlgBtn.mbOk], 0);
+      Exit;
+    end;
+
+    with dm_databasis do begin
+
+      tbl_users.Open;
+      tbl_users.Locate('Username', dmsUsername, []);
+      tbl_users.Edit;
+      tbl_users['Email'] := sEmail;
+      tbl_users.Close;
+
+    end;
+
+    dm_logger.logger.LogLine('Email address changed to: ' + sEmail);
+
+  end;
+
+end;
+
+procedure Tfrm_profile.btn_saveClick(Sender: TObject);
+var
+  sDesc: string;
+begin
+
+  sDesc := mem_desc.Lines.Text;
+  // Save
+  with dm_databasis do begin
+
+    try
+      tbl_users.Open;
+
+      if tbl_users.locate('Username', dmsUsername, []) then begin
+
+        tbl_users.Edit;
+        tbl_users['Description'] := sDesc;
+        tbl_users['Seller'] := chk_seller.IsChecked;
+        tbl_users.Post;
+
+      end;
+
+      tbl_users.Close;
+    except
+      // Net tot dat ek eventually die error kry
+      MessageDlg('Failed to save profile changes.', TMsgDlgType.mtError, [TMsgDlgBtn.mbOk], 0);
+      Exit;
+    end;
+
+  end;
+
+  // Restore die Description
+  mem_desc.ReadOnly := True;
+  // with statement sou prob better werk maar eks te lui om oor te tik
+  mem_desc.Lines.Clear;
+  mem_desc.Lines.Add('Description');
+  mem_desc.Lines.Add('-----------------------------------');
+  mem_desc.Lines.Add(sDesc);
+
+  dm_logger.logger.LogLine('User changed their descripion.');
+
+end;
+
+procedure Tfrm_profile.btn_viewClick(Sender: TObject);
+var
+  TL: textfile;
+begin
+
+  // Gebruik textfile om te kommunikeer met ander form
+  AssignFile(TL, 'grap.lag'); // Ek hoop die grap maak julle lag.
+  Rewrite(TL);
+  CloseFile(TL);
+
+  // Gaan terug na main form en display listings.
+  dms_frm_main.Show;
+  Hide;
+
+end;
+
+procedure Tfrm_profile.chk_sellerChange(Sender: TObject);
+begin
+
+  if FUpdating then
+    Exit;
+
+  with dm_databasis do begin
+
+    if not tbl_users.Active then
+      tbl_users.Open;
+
+    tbl_users.locate('Username', dmsUsername, []);
+
+    // Vir die kode om te werk moes ek 2 nuwe goed by uses
+    // Ek moes daai uses gaan steel by my data module
+    if not (tbl_users.State in [dsEdit, dsInsert]) then
+      tbl_users.Edit;
+
+    tbl_users['Seller'] := chk_seller.IsChecked;
+
+    tbl_users.Post;
+
+    if tbl_users.Active then
+      tbl_users.Close;
+
+    dm_logger.logger.LogLine('Changed account type value (Seller vs Non Seller).');
+
+  end;
+end;
+
+procedure Tfrm_profile.FormActivate(Sender: TObject);
+begin
+
+  if dm_databasis.dmsUsername = dm_databasis.dmsTarget then begin
+    lbl_desc.Visible := True;
+
+    btn_edit.Enabled := True;
+    btn_edit.Visible := True;
+
+    btn_save.Enabled := True;
+    btn_save.Visible := True;
+
+    chk_seller.Enabled := True;
+    chk_seller.Visible := True;
+
+    btn_email.Enabled := True;
+    btn_email.Visible := True;
+
+  end
+  else begin
+    lbl_desc.Visible := False;
+
+    btn_edit.Enabled := False;
+    btn_edit.Visible := False;
+
+    btn_save.Enabled := False;
+    btn_save.Visible := False;
+
+    chk_seller.Enabled := False;
+    chk_seller.Visible := False;
+
+    btn_email.Enabled := False;
+    btn_email.Visible := False;
+
+  end;
+
+  with dm_databasis do begin
+
+    lbl_username.Text := dmsTarget;
+    tbl_users.Open;
+
+    mem_desc.Lines.Clear;
+    mem_desc.Lines.Add('Description');
+    mem_desc.Lines.Add('-----------------------------------');
+
+    if tbl_users.locate('Username', dmsTarget, []) then begin // peak error handling
+      mem_desc.Lines.Add(tbl_users.FieldByName('Description').AsString);
+
+      // Load die checkbox SONDER triggering OnChange
+      FUpdating := True;
+      try
+        chk_seller.IsChecked := tbl_users.FieldByName('Seller').AsBoolean;
+      finally
+        FUpdating := False;
+      end;
+    end
+    else begin
+      mem_desc.Lines.Add('Error: ' + dmsTarget);
+    end;
+
+    tbl_users.Close;
+
+  end;
+end;
+
+procedure Tfrm_profile.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Application.Terminate;
+end;
+
+procedure Tfrm_profile.FormCreate(Sender: TObject);
+begin
+
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Jet' then
+    stylebook := dm_databasis.StyleBook2;
+
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Blue' then
+    stylebook := dm_databasis.StyleBook1;
+
+end;
+
+procedure Tfrm_profile.FormResize(Sender: TObject);
+begin
+  // Layout
+  sl_profile.Width := Self.Width;
+  sl_profile.Height := Self.Height;
+
+end;
+
+end.

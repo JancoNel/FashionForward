@@ -1,0 +1,11 @@
+inherited frm_main_Windows: Tfrm_main_Windows
+  DesignerMasterStyle = 0
+  inherited sl_main: TScaledLayout
+    Position.X = 80.000000000000000000
+    Position.Y = 40.000000000000000000
+    inherited sg_afvoer: TStringGrid
+      Viewport.Width = 329.000000000000000000
+      Viewport.Height = 261.000000000000000000
+    end
+  end
+end

@@ -1,0 +1,6 @@
+Icon_1 ICON "Assets\\FF.ico"
+PngImage_1 RCDATA "Assets\\FMXStyle-ImpressiveDark-1.0\\FMXStyle-ImpressiveDark-1.0.png"
+PngImage_2 RCDATA "Assets\\FMXStyle-ImpressiveDark-1.0\\IconFMXStyle-ImpressiveDark-1.0.png"
+PngImage_3 RCDATA "Assets\\FF.png"
+PngImage_4 RCDATA "Assets\\JetFMXPremuimStyle\\1.0\\IconJetFMXPremuimStyle-1.0.png"
+PngImage_5 RCDATA "Assets\\JetFMXPremuimStyle\\1.0\\JetFMXPremuimStyle-1.0.png"

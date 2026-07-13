@@ -1,0 +1,9 @@
+inherited frm_start_Surface: Tfrm_start_Surface
+  ClientHeight = 1920
+  ClientWidth = 1080
+  DesignerMasterStyle = 0
+  inherited sl_start: TScaledLayout
+    Position.X = -8.000000000000000000
+    Position.Y = 8.000000000000000000
+  end
+end

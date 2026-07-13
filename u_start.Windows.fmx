@@ -1,0 +1,7 @@
+inherited frm_start_Windows: Tfrm_start_Windows
+  DesignerMasterStyle = 0
+  inherited sl_start: TScaledLayout
+    Position.X = -8.000000000000000000
+    Position.Y = 8.000000000000000000
+  end
+end

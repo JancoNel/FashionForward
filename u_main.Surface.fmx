@@ -1,0 +1,13 @@
+inherited frm_main_Surface: Tfrm_main_Surface
+  ClientHeight = 1920
+  ClientWidth = 1080
+  DesignerMasterStyle = 0
+  inherited sl_main: TScaledLayout
+    Position.X = 80.000000000000000000
+    Position.Y = 40.000000000000000000
+    inherited sg_afvoer: TStringGrid
+      Viewport.Width = 329.000000000000000000
+      Viewport.Height = 261.000000000000000000
+    end
+  end
+end

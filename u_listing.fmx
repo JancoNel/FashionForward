@@ -1,0 +1,94 @@
+object frm_listing: Tfrm_listing
+  Left = 0
+  Top = 0
+  Caption = 'Listing'
+  ClientHeight = 480
+  ClientWidth = 640
+  StyleBook = dm_databasis.StyleBook2
+  WindowState = wsMaximized
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnActivate = FormShow
+  OnCreate = FormCreate
+  OnClose = FormClose
+  OnResize = FormResize
+  DesignerMasterStyle = 0
+  object sl_listing: TScaledLayout
+    OriginalWidth = 640.000000000000000000
+    OriginalHeight = 480.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 480.000000000000000000
+    Size.PlatformDefault = False
+    object btn_back: TButton
+      Position.X = 409.000000000000000000
+      Position.Y = 409.000000000000000000
+      TabOrder = 1
+      Text = 'Back'
+      OnClick = btn_backClick
+    end
+    object btn_contact: TButton
+      Position.X = 184.000000000000000000
+      Position.Y = 409.000000000000000000
+      TabOrder = 3
+      Text = 'Contact'
+      OnClick = btn_contactClick
+    end
+    object mem_desc: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      DataDetectorTypes = []
+      Lines.Strings = (
+        'Product Name:   X'
+        'Rating:                X'
+        'Product ID:         X'
+        'Seller:                 X'
+        'Price:                  X'
+        'Location:            X'
+        'Description:'
+        'XXXXXXXXXXXXXXXXXXXXX'#11
+        ''
+        ''
+        ''
+        ''
+        '')
+      ReadOnly = True
+      Position.X = 184.000000000000000000
+      Position.Y = 128.000000000000000000
+      Size.Width = 305.000000000000000000
+      Size.Height = 233.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 6
+      Viewport.Width = 301.000000000000000000
+      Viewport.Height = 229.000000000000000000
+    end
+    object lbl_Product: TLabel
+      StyledSettings = [Family, Style]
+      Position.X = 184.000000000000000000
+      Position.Y = 39.000000000000000000
+      Size.Width = 305.000000000000000000
+      Size.Height = 65.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 30.000000000000000000
+      TextSettings.FontColor = claBlue
+      TextSettings.HorzAlign = Center
+      Text = 'Product'
+      TabOrder = 7
+    end
+    object btn_review: TButton
+      Position.X = 295.000000000000000000
+      Position.Y = 409.000000000000000000
+      TabOrder = 2
+      Text = 'Reviews'
+      OnClick = btn_reviewClick
+    end
+    object btn_delete: TButton
+      StyledSettings = [Family, Size, Style]
+      Position.X = 528.000000000000000000
+      Position.Y = 248.000000000000000000
+      TabOrder = 10
+      Text = 'Delete'
+      TextSettings.FontColor = claCrimson
+      OnClick = btn_deleteClick
+    end
+  end
+end
