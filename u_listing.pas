@@ -112,6 +112,7 @@ begin
 
       if tbl_listings.Locate('ID', dmsListing, []) then begin
 
+        tbl_listings.Edit;
         tbl_listings.Delete;
 
         MessageDlg('Listing deleted successfully', TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOk], 0);
