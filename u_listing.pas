@@ -120,7 +120,11 @@ begin
         dms_frm_main.Show;
         Hide;
 
+        tbl_listings.post;
+
       end;
+
+      tbl_listings.Close;
 
     end;
 
