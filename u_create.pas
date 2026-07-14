@@ -46,7 +46,6 @@ type
     sl_create: TScaledLayout;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
 
     procedure btn_CreateClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -77,6 +76,27 @@ begin
   sDesc := mem_desc.Lines.Text;
   rPrice := strtofloat(Edt_price.text);
 
+  {
+  Het my PAT vir vriende gegee om te toets
+  Hulle het baie bugs gekry oor min input validasie so dis wat ek
+  nou hier gaan doen
+  }
+
+  if (sName = '') or (sLocation = '') or (sDesc = '') then
+  begin
+    MessageDlg('Filed can not be empty!', TMsgDlgType.mtError, [TMsgDlgBtn.mbOk], 0);
+    exit;
+  end;
+
+  if not (rPrice > 0) then
+  begin
+    MessageDlg('Price has to be bigger than 0', TMsgDlgType.mtError, [TMsgDlgBtn.mbOk], 0);
+    exit;
+  end;
+
+
+  // Input validation eindig hier.
+
   // iSeller start
   with dm_databasis do begin
     tbl_users.Open;
@@ -96,6 +116,7 @@ begin
             if ObjListing.SaveListing(False) = ObjListing.SUCCESS then begin
               MessageDlg('Listing created successfully', TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOk], 0);
               dm_databasis.dmsListing := inttostr(ObjListing.GetID());
+              u_listing.frm_listing.sDeleted := false;
               u_listing.frm_listing.Show;
               u_listing.frm_listing.dms_frm_main := dms_frm_main;
               Hide;
@@ -111,17 +132,6 @@ begin
   Application.Terminate;
 end;
 
-procedure Tfrm_create.FormCreate(Sender: TObject);
-begin
-
-  if dm_Fashion.dm_databasis.arrSettings[2] = 'Jet' then
-    stylebook := dm_databasis.StyleBook2;
-
-  if dm_Fashion.dm_databasis.arrSettings[2] = 'Blue' then
-    stylebook := dm_databasis.StyleBook1;
-
-end;
-
 procedure Tfrm_create.FormResize(Sender: TObject);
 begin
   sl_create.Width := Self.Width;
@@ -130,6 +140,12 @@ end;
 
 procedure Tfrm_create.FormShow(Sender: TObject);
 begin
+
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Jet' then
+    stylebook := dm_databasis.StyleBook2;
+
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Blue' then
+    stylebook := dm_databasis.StyleBook1;
 
   // TODO: Implimenteer hierdie
 

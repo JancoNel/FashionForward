@@ -1,0 +1,161 @@
+object frm_main: Tfrm_main
+  Left = 0
+  Top = 0
+  Caption = 'Fashion Forward'
+  ClientHeight = 460
+  ClientWidth = 640
+  Position = Designed
+  StyleBook = dm_databasis.StyleBook2
+  WindowState = wsMaximized
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnResize = FormResize
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object sl_main: TScaledLayout
+    OriginalWidth = 640.000000000000000000
+    OriginalHeight = 460.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 460.000000000000000000
+    Size.PlatformDefault = False
+    object pnl_main: TPanel
+      Position.X = 175.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 290.000000000000000000
+      Size.Height = 97.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 10
+      object lbl_Fashion: TLabel
+        StyledSettings = [Family, Style]
+        Position.X = 40.000000000000000000
+        Size.Width = 217.000000000000000000
+        Size.Height = 97.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 30.000000000000000000
+        TextSettings.FontColor = claBlue
+        Text = 'Fashion Forward'
+        TabOrder = 0
+      end
+    end
+    object sg_afvoer: TStringGrid
+      CanFocus = True
+      ClipChildren = True
+      Position.X = 24.000000000000000000
+      Position.Y = 127.000000000000000000
+      Size.Width = 329.000000000000000000
+      Size.Height = 261.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 16
+      Options = [ColumnResize, ColumnMove, ColLines, RowLines, Tabs, Header, HeaderClick, AutoDisplacement]
+      Viewport.Width = 309.000000000000000000
+      Viewport.Height = 220.000000000000000000
+      object StringColumn1: TStringColumn
+        Header = 'Product ID'
+        HeaderSettings.TextSettings.WordWrap = False
+      end
+      object StringColumn2: TStringColumn
+        Header = 'Product Name'
+        HeaderSettings.TextSettings.WordWrap = False
+      end
+      object StringColumn3: TStringColumn
+        Header = 'Description'
+        HeaderSettings.TextSettings.WordWrap = False
+      end
+      object StringColumn4: TStringColumn
+        Header = 'Seller'
+        HeaderSettings.TextSettings.WordWrap = False
+      end
+      object StringColumn5: TStringColumn
+        Header = 'Price'
+        HeaderSettings.TextSettings.WordWrap = False
+      end
+      object StringColumn6: TStringColumn
+        Header = 'Location'
+        HeaderSettings.TextSettings.WordWrap = False
+      end
+    end
+    object lbl_username: TLabel
+      Position.X = 376.000000000000000000
+      Position.Y = 215.000000000000000000
+      Text = 'Username'
+      TabOrder = 9
+    end
+    object lbl_queery: TLabel
+      Position.X = 376.000000000000000000
+      Position.Y = 127.000000000000000000
+      Text = 'Query'
+      TabOrder = 8
+    end
+    object lbl_listing: TLabel
+      Position.X = 376.000000000000000000
+      Position.Y = 311.000000000000000000
+      Text = 'Listing'
+      TabOrder = 6
+    end
+    object edt_Username: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 7
+      Position.X = 376.000000000000000000
+      Position.Y = 240.000000000000000000
+      Size.Width = 168.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edt_Query: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 2
+      Position.X = 376.000000000000000000
+      Position.Y = 152.000000000000000000
+      Size.Width = 168.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edt_Listing: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 0
+      Position.X = 376.000000000000000000
+      Position.Y = 336.000000000000000000
+      Size.Width = 168.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object btn_view: TButton
+      Position.X = 376.000000000000000000
+      Position.Y = 366.000000000000000000
+      TabOrder = 1
+      Text = 'View'
+      OnClick = btn_viewClick
+    end
+    object btn_search: TButton
+      Position.X = 376.000000000000000000
+      Position.Y = 182.000000000000000000
+      TabOrder = 3
+      Text = 'Search'
+      OnClick = btn_searchClick
+    end
+    object btn_Profile: TButton
+      Position.X = 464.000000000000000000
+      Position.Y = 270.000000000000000000
+      TabOrder = 4
+      Text = 'Profile'
+      OnClick = btn_ProfileClick
+    end
+    object btn_Create: TButton
+      Position.X = 464.000000000000000000
+      Position.Y = 366.000000000000000000
+      TabOrder = 12
+      Text = 'Create'
+      OnClick = btn_CreateClick
+    end
+    object btn_Contact: TButton
+      Position.X = 376.000000000000000000
+      Position.Y = 270.000000000000000000
+      TabOrder = 5
+      Text = 'Contact'
+      OnClick = btn_ContactClick
+    end
+  end
+end

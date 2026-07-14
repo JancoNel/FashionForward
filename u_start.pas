@@ -191,12 +191,20 @@ end;
 procedure Tfrm_start.btn_createClick(Sender: TObject);
 var
   BGekry: Boolean;
-  sPassword, sCon: string;
+  sPassword, sCon, sEmail: string;
 begin
 
   sUsername := edt_username.Text;
   sPassword := edt_password.Text;
   dm_databasis.dmsUsername := sUsername;
+  sEmail := inputbox('Email','Please enter an account email.','');
+
+  // Input valideering
+  if sEmail = '' then
+  begin
+  MessageDlg('Email cant be blank!', TMsgDlgType.mtError, [TMsgDlgBtn.mbOk], 0);
+  exit;
+  end;
 
   // verifieer password (nommers, hoofletters, special chars, length)
 
@@ -247,6 +255,7 @@ begin
 
       tbl_users['Username'] := sUsername;
       tbl_users['Password_Hash'] := HashPassword(sPassword, 'Fashion_salt');
+      tbl_users['Email'] := sEmail;
 
       MessageDlg('User created successfully!', TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOk], 0);
 
@@ -311,6 +320,7 @@ begin
       tbl_users.Insert;
       tbl_users['Username'] := sUsername;
       tbl_users['Password_Hash'] := HashPassword(sPassword, 'Fashion_salt');
+      tbl_users['Email'] := sEmail;
       tbl_users.Post;
 
       MessageDlg(

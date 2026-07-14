@@ -48,6 +48,7 @@ type
     procedure btn_HomeClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
   { Private declarations }
   public
@@ -89,8 +90,24 @@ begin
 
   // Inputbox spam lol
   dtReview := Now;
+
   sComment := inputbox('Comment', 'What is your review comment?', '');
   rRating := strtofloat(inputbox('Rating', 'What would you rate this comment from 0 - 5?', ''));
+
+  // Input valideeringh!
+  if sComment = '' then
+  begin
+    MessageDlg('Comment cant be blank!', TMsgDlgType.mtError, [TMsgDlgBtn.mbOk], 0);
+    exit;
+  end;
+
+  if (rRating < 0.00) or (rRating > 5.00) then
+  begin
+    // Invalid rating
+    MessageDlg('Invalid rating number!', TMsgDlgType.mtError, [TMsgDlgBtn.mbOk], 0);
+    exit;
+  end;
+
 
   iListingID := strtoint(dm_databasis.dmsListing);
 
@@ -118,6 +135,18 @@ begin
     dm_logger.logger.LogLine('Left review on: ' + inttostr(iListingID));
 
   end;
+
+end;
+
+procedure Tfrm_reviews.FormActivate(Sender: TObject);
+begin
+
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Jet' then
+    stylebook := dm_databasis.StyleBook2;
+
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Blue' then
+    stylebook := dm_databasis.StyleBook1;
+
 
 end;
 

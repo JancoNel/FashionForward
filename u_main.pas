@@ -66,7 +66,6 @@ type
     procedure btn_ProfileClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn_viewClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_CreateClick(Sender: TObject);
   private
@@ -248,6 +247,7 @@ begin
   end;
 
   u_listing.frm_listing.dms_frm_main := Self;
+  u_listing.frm_listing.sDeleted := false;
   u_listing.frm_listing.Show;
   Hide;
 end;
@@ -270,7 +270,7 @@ begin
   if dm_databasis.tbl_listings.RecordCount > 0 then
     sg_afvoer.RowCount := dm_databasis.tbl_listings.RecordCount
   else
-    sg_afvoer.RowCount := 1; // Keep at least 1 row
+    sg_afvoer.RowCount := 1;
   //sg_afvoer.ColumnCount := 6;  Bestaan nie in firemonkey
   dm_databasis.tbl_listings.Close; // Die gaan heel moontlik bugs veroorsaak maar ons kkyk en sien;
 
@@ -279,18 +279,6 @@ end;
 procedure Tfrm_main.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Application.Terminate;
-end;
-
-procedure Tfrm_main.FormCreate(Sender: TObject);
-begin
-
-  // Stylebook ding.
-  if dm_Fashion.dm_databasis.arrSettings[2] = 'Jet' then
-    stylebook := dm_databasis.StyleBook2;
-
-  if dm_Fashion.dm_databasis.arrSettings[2] = 'Blue' then
-    stylebook := dm_databasis.StyleBook1;
-
 end;
 
 procedure Tfrm_main.FormResize(Sender: TObject);
@@ -306,6 +294,14 @@ var
   iID, iTel, i, k: integer;
   sUser: string;
 begin
+
+    // Stylebook ding.
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Jet' then
+    stylebook := dm_databasis.StyleBook2;
+
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Blue' then
+    stylebook := dm_databasis.StyleBook1;
+
 
   iTel := 0;
 
@@ -376,6 +372,7 @@ begin
 
     with dm_databasis do begin
 
+      tbl_users.Open;
       tbl_listings.Open;
 
       // Maak die stringgrid skoon

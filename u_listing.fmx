@@ -9,7 +9,7 @@ object frm_listing: Tfrm_listing
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
-  OnActivate = FormShow
+  OnActivate = FormActivate
   OnCreate = FormCreate
   OnClose = FormClose
   OnResize = FormResize

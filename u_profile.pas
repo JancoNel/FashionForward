@@ -50,7 +50,6 @@ type
     procedure btn_saveClick(Sender: TObject);
     procedure chk_sellerChange(Sender: TObject);
     procedure btn_ContactClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormResize(Sender: TObject);
     procedure btn_emailClick(Sender: TObject);
@@ -245,6 +244,12 @@ end;
 procedure Tfrm_profile.FormActivate(Sender: TObject);
 begin
 
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Jet' then
+    stylebook := dm_databasis.StyleBook2;
+
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Blue' then
+    stylebook := dm_databasis.StyleBook1;
+
   if dm_databasis.dmsUsername = dm_databasis.dmsTarget then begin
     lbl_desc.Visible := True;
 
@@ -310,17 +315,6 @@ end;
 procedure Tfrm_profile.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Application.Terminate;
-end;
-
-procedure Tfrm_profile.FormCreate(Sender: TObject);
-begin
-
-  if dm_Fashion.dm_databasis.arrSettings[2] = 'Jet' then
-    stylebook := dm_databasis.StyleBook2;
-
-  if dm_Fashion.dm_databasis.arrSettings[2] = 'Blue' then
-    stylebook := dm_databasis.StyleBook1;
-
 end;
 
 procedure Tfrm_profile.FormResize(Sender: TObject);

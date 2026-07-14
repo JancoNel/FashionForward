@@ -5,9 +5,9 @@ program FashionForward_p;
 uses
   System.StartUpCopy,
   FMX.Forms,
+  dm_FASHION in 'dm_FASHION.pas' {dm_databasis: TDataModule},
   u_start in 'u_start.pas' {frm_start},
   u_main in 'u_main.pas' {frm_main},
-  dm_FASHION in 'dm_FASHION.pas' {dm_databasis: TDataModule},
   u_profile in 'u_profile.pas' {frm_profile},
   u_listing in 'u_listing.pas' {frm_listing},
   u_reviews in 'u_reviews.pas' {frm_reviews},

@@ -1,0 +1,125 @@
+object frm_profile: Tfrm_profile
+  Left = 0
+  Top = 0
+  Caption = 'Profile'
+  ClientHeight = 460
+  ClientWidth = 640
+  StyleBook = dm_databasis.StyleBook2
+  WindowState = wsMaximized
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
+  OnResize = FormResize
+  OnShow = FormActivate
+  DesignerMasterStyle = 0
+  object sl_profile: TScaledLayout
+    OriginalWidth = 640.000000000000000000
+    OriginalHeight = 460.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 460.000000000000000000
+    Size.PlatformDefault = False
+    object mem_desc: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      DataDetectorTypes = []
+      Lines.Strings = (
+        'Description'
+        '-----------------------------------')
+      ReadOnly = True
+      Position.X = 168.000000000000000000
+      Position.Y = 104.000000000000000000
+      Size.Width = 313.000000000000000000
+      Size.Height = 265.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 6
+      Viewport.Width = 309.000000000000000000
+      Viewport.Height = 261.000000000000000000
+    end
+    object lbl_USERNAME: TLabel
+      StyledSettings = [Family, Style]
+      Position.X = 183.000000000000000000
+      Position.Y = 23.000000000000000000
+      Size.Width = 273.000000000000000000
+      Size.Height = 65.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 30.000000000000000000
+      TextSettings.FontColor = claBlue
+      TextSettings.HorzAlign = Center
+      Text = 'Username'
+      TabOrder = 7
+    end
+    object lbl_rating: TLabel
+      Position.X = 183.000000000000000000
+      Position.Y = 79.000000000000000000
+      Size.Width = 273.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.HorzAlign = Center
+      Text = 'Rating: '
+      TabOrder = 13
+    end
+    object lbl_desc: TLabel
+      Position.X = 521.000000000000000000
+      Position.Y = 104.000000000000000000
+      Size.Width = 80.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.HorzAlign = Center
+      Text = 'Description'
+      TabOrder = 12
+    end
+    object btn_view: TButton
+      Position.X = 284.000000000000000000
+      Position.Y = 392.000000000000000000
+      TabOrder = 3
+      Text = 'Listings'
+      OnClick = btn_viewClick
+    end
+    object btn_save: TButton
+      Position.X = 521.000000000000000000
+      Position.Y = 159.000000000000000000
+      TabOrder = 10
+      Text = 'Save'
+      OnClick = btn_saveClick
+    end
+    object btn_edit: TButton
+      Position.X = 521.000000000000000000
+      Position.Y = 129.000000000000000000
+      TabOrder = 11
+      Text = 'Edit'
+      OnClick = btn_editClick
+    end
+    object btn_Contact: TButton
+      Position.X = 168.000000000000000000
+      Position.Y = 392.000000000000000000
+      TabOrder = 4
+      Text = 'Contact'
+      OnClick = btn_ContactClick
+    end
+    object btn_Back: TButton
+      Position.X = 401.000000000000000000
+      Position.Y = 392.000000000000000000
+      TabOrder = 2
+      Text = 'Back'
+      OnClick = btn_BackClick
+    end
+    object chk_seller: TCheckBox
+      Position.X = 521.000000000000000000
+      Position.Y = 189.000000000000000000
+      Size.Width = 80.000000000000000000
+      Size.Height = 19.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 14
+      Text = 'Seller'
+      OnChange = chk_sellerChange
+    end
+    object btn_email: TButton
+      Position.X = 521.000000000000000000
+      Position.Y = 216.000000000000000000
+      TabOrder = 15
+      Text = 'Set Email'
+      OnClick = btn_emailClick
+    end
+  end
+end

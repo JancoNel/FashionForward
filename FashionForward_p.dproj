@@ -137,6 +137,10 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
+        <DCCReference Include="dm_FASHION.pas">
+            <Form>dm_databasis</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="u_start.pas">
             <Form>frm_start</Form>
             <FormType>fmx</FormType>
@@ -144,11 +148,6 @@
         <DCCReference Include="u_main.pas">
             <Form>frm_main</Form>
             <FormType>fmx</FormType>
-        </DCCReference>
-        <DCCReference Include="dm_FASHION.pas">
-            <Form>dm_databasis</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="u_profile.pas">
             <Form>frm_profile</Form>

@@ -9,7 +9,6 @@ object frm_profile: Tfrm_profile
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
-  OnCreate = FormCreate
   OnClose = FormClose
   OnResize = FormResize
   OnShow = FormActivate

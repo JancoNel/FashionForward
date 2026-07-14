@@ -1,0 +1,32 @@
+program FashionForward_p;
+
+{$R *.dres}
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+    dm_FASHION in 'dm_FASHION.pas' {dm_databasis: TDataModule},
+  u_start in 'u_start.pas' {frm_start},
+  u_main in 'u_main.pas' {frm_main},
+
+  u_profile in 'u_profile.pas' {frm_profile},
+  u_listing in 'u_listing.pas' {frm_listing},
+  u_reviews in 'u_reviews.pas' {frm_reviews},
+  u_create in 'u_create.pas' {frm_create},
+  dm_logger in 'dm_logger.pas' {logger: TDataModule},
+  clsListing in 'Classes\clsListing.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(Tdm_databasis, dm_databasis);
+  Application.CreateForm(Tfrm_start, frm_start);
+  Application.CreateForm(Tfrm_main, frm_main);
+  Application.CreateForm(Tfrm_profile, frm_profile);
+  Application.CreateForm(Tfrm_listing, frm_listing);
+  Application.CreateForm(Tfrm_reviews, frm_reviews);
+  Application.CreateForm(Tfrm_create, frm_create);
+  Application.CreateForm(Tlogger, logger);
+  Application.Run;
+end.

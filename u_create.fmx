@@ -9,7 +9,6 @@ object frm_create: Tfrm_create
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
-  OnCreate = FormCreate
   OnClose = FormClose
   OnResize = FormResize
   OnShow = FormShow

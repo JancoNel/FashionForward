@@ -1,0 +1,140 @@
+{ Code parsed using PASFMT on 2026-07-13 18:20:39.997094 }
+
+unit u_create;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  FMX.Memo.Types,
+  FMX.ScrollBox,
+  FMX.Memo,
+  FMX.Edit,
+  System.Sensors,
+  System.Sensors.Components,
+  Dm_fashion,
+  clsListing,
+  u_Listing,
+  dm_logger,
+  FMX.Layouts;
+
+type
+  Tfrm_create = class(TForm)
+    btn_Create: TButton;
+    mem_desc: TMemo;
+    lbl_desc: TLabel;
+    Panel1: TPanel;
+    edt_name: TEdit;
+    edt_location: TEdit;
+    lbl_location: TLabel;
+    edt_p_name: TEdit;
+    lbl_name: TLabel;
+    edt_price: TEdit;
+    lbl_price: TLabel;
+    lbl_currency: TLabel;
+    sl_create: TScaledLayout;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+
+    procedure btn_CreateClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+  private
+  { Private declarations }
+  public
+    { Public declarations }
+    dms_frm_main: TForm;
+  end;
+
+var
+  frm_create: Tfrm_create;
+
+implementation
+
+{$R *.fmx}
+
+procedure Tfrm_create.btn_CreateClick(Sender: TObject);
+var
+  sName, sLocation, sDesc: string;
+  rPrice: real;
+  ObjListing: TListing;
+  iSeller: integer;
+begin
+
+  sName := edt_p_name.Text;
+  sLocation := edt_location.Text;
+  sDesc := mem_desc.Lines.Text;
+  rPrice := strtofloat(Edt_price.text);
+
+  // iSeller start
+  with dm_databasis do begin
+    tbl_users.Open;
+    tbl_users.Locate('Username', dmsUsername, []);
+    iSeller := tbl_users['ID'];
+    tbl_users.Close;
+  end;
+  // iSeller end
+
+  ObjListing := TListing.Create;
+
+  if ObjListing.SetPrice(rPrice) = ObjListing.SUCCESS then
+    if ObjListing.SetName(sName) = ObjListing.SUCCESS then
+      if ObjListing.SetDesc(sDesc) = ObjListing.SUCCESS then
+        if ObjListing.setLocation(sLocation) = ObjListing.SUCCESS then
+          if ObjListing.SetSeller(iSeller) = ObjListing.SUCCESS then
+            if ObjListing.SaveListing(False) = ObjListing.SUCCESS then begin
+              MessageDlg('Listing created successfully', TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOk], 0);
+              dm_databasis.dmsListing := inttostr(ObjListing.GetID());
+              u_listing.frm_listing.Show;
+              u_listing.frm_listing.dms_frm_main := dms_frm_main;
+              Hide;
+              dm_logger.logger.LogLine('Created listing ID: ' + dm_databasis.dmsListing);
+            end;
+
+  ObjListing.Free;
+
+end;
+
+procedure Tfrm_create.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Application.Terminate;
+end;
+
+procedure Tfrm_create.FormCreate(Sender: TObject);
+begin
+
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Jet' then
+    stylebook := dm_databasis.StyleBook2;
+
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Blue' then
+    stylebook := dm_databasis.StyleBook1;
+
+end;
+
+procedure Tfrm_create.FormResize(Sender: TObject);
+begin
+  sl_create.Width := Self.Width;
+  sl_create.Height := Self.Height;
+end;
+
+procedure Tfrm_create.FormShow(Sender: TObject);
+begin
+
+  // TODO: Implimenteer hierdie
+
+  // https://developers.google.com/maps/documentation/geocoding/requests-reverse-geocoding
+
+end;
+
+end.

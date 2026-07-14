@@ -11,7 +11,6 @@ object frm_main: Tfrm_main
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnActivate = FormActivate
-  OnCreate = FormCreate
   OnClose = FormClose
   OnResize = FormResize
   OnShow = FormShow
@@ -24,7 +23,7 @@ object frm_main: Tfrm_main
     Size.PlatformDefault = False
     object pnl_main: TPanel
       Position.X = 175.000000000000000000
-      Position.Y = 10.000000000000000000
+      Position.Y = 22.000000000000000000
       Size.Width = 290.000000000000000000
       Size.Height = 97.000000000000000000
       Size.PlatformDefault = False

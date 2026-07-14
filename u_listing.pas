@@ -39,7 +39,7 @@ type
     btn_delete: TButton;
     sl_listing: TScaledLayout;
     procedure FormCreate(Sender: TObject);
-    procedure FormShow(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btn_deleteClick(Sender: TObject);
     procedure btn_backClick(Sender: TObject);
@@ -52,6 +52,7 @@ type
     { Public declarations }
     dms_frm_main: TForm;
     arrInit: array of string;
+    sDeleted: boolean;
   end;
 
 var
@@ -91,11 +92,11 @@ begin
     tbl_users.Close;
   end;
 end;
+
 procedure Tfrm_listing.btn_deleteClick(Sender: TObject);
 var
   iResponse: Integer;
 begin
-
   iResponse :=
       MessageDlg(
           'Are you sure you want to delete this listing?',
@@ -105,32 +106,28 @@ begin
       );
 
   if iResponse = mrYes then begin
-
     with dm_databasis do begin
-
       tbl_listings.Open;
 
       if tbl_listings.Locate('ID', dmsListing, []) then begin
-
-        tbl_listings.Edit;
+        sDeleted := True;
         tbl_listings.Delete;
 
         MessageDlg('Listing deleted successfully', TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOk], 0);
 
         dm_logger.logger.LogLine('Deleted listing: ' + dmsListing);
-        dms_frm_main.Show;
-        Hide;
 
-        tbl_listings.post;
+        dmsListing := '';
+
+
+        Hide;
+        dms_frm_main.Show;
 
       end;
 
       tbl_listings.Close;
-
     end;
-
   end;
-
 end;
 
 procedure Tfrm_listing.btn_reviewClick(Sender: TObject);
@@ -151,13 +148,8 @@ end;
 procedure Tfrm_listing.FormCreate(Sender: TObject);
 begin
 
+  sDeleted := false;
   ArrInit := mem_desc.Lines.ToStringArray;
-
-  if dm_Fashion.dm_databasis.arrSettings[2] = 'Jet' then
-    stylebook := dm_databasis.StyleBook2;
-
-  if dm_Fashion.dm_databasis.arrSettings[2] = 'Blue' then
-    stylebook := dm_databasis.StyleBook1;
 
 end;
 
@@ -170,7 +162,7 @@ begin
 
 end;
 
-procedure Tfrm_listing.FormShow(Sender: TObject);
+procedure Tfrm_listing.FormActivate(Sender: TObject);
 var
   ArrCopy: array of string;
   k, sQueer: string;
@@ -178,6 +170,17 @@ var
   ObjListing: TListing;
 
 begin
+
+  // Stap -2:
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Jet' then
+    stylebook := dm_databasis.StyleBook2;
+
+  if dm_Fashion.dm_databasis.arrSettings[2] = 'Blue' then
+    stylebook := dm_databasis.StyleBook1;
+
+  // Stap -1: CHeck sDeleted
+  If sDeleted then
+    Exit;
 
   // Stap 0: Die 2de ADOQuery
 
