@@ -59,8 +59,8 @@ object frm_profile: Tfrm_profile
       TabOrder = 13
     end
     object lbl_desc: TLabel
-      Position.X = 521.000000000000000000
-      Position.Y = 104.000000000000000000
+      Position.X = 41.000000000000000000
+      Position.Y = 160.000000000000000000
       Size.Width = 80.000000000000000000
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
@@ -76,15 +76,15 @@ object frm_profile: Tfrm_profile
       OnClick = btn_viewClick
     end
     object btn_save: TButton
-      Position.X = 521.000000000000000000
-      Position.Y = 159.000000000000000000
+      Position.X = 41.000000000000000000
+      Position.Y = 215.000000000000000000
       TabOrder = 10
       Text = 'Save'
       OnClick = btn_saveClick
     end
     object btn_edit: TButton
-      Position.X = 521.000000000000000000
-      Position.Y = 129.000000000000000000
+      Position.X = 41.000000000000000000
+      Position.Y = 185.000000000000000000
       TabOrder = 11
       Text = 'Edit'
       OnClick = btn_editClick
@@ -104,8 +104,8 @@ object frm_profile: Tfrm_profile
       OnClick = btn_BackClick
     end
     object chk_seller: TCheckBox
-      Position.X = 521.000000000000000000
-      Position.Y = 189.000000000000000000
+      Position.X = 41.000000000000000000
+      Position.Y = 245.000000000000000000
       Size.Width = 80.000000000000000000
       Size.Height = 19.000000000000000000
       Size.PlatformDefault = False
@@ -114,8 +114,8 @@ object frm_profile: Tfrm_profile
       OnChange = chk_sellerChange
     end
     object btn_email: TButton
-      Position.X = 521.000000000000000000
-      Position.Y = 216.000000000000000000
+      Position.X = 41.000000000000000000
+      Position.Y = 272.000000000000000000
       TabOrder = 15
       Text = 'Set Email'
       OnClick = btn_emailClick
